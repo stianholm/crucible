@@ -1,0 +1,5 @@
+{
+  "task_id": "sum_digits-03",
+  "input": "{\"op\": \"sum_digits\", \"args\": [-987]}",
+  "expected": 24
+}

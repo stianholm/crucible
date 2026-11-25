@@ -1,0 +1,14 @@
+{
+  "task_id": "clean-insufficient-04",
+  "input": "{\"proposal_id\": \"clean-insufficient-04\", \"narrative\": \"An operations team has submitted a capability case to acknowledge a recurring nuisance alarm on the flare-gas recovery line without per-action human approval, through the operational change gateway.\\n\\nTest results: A two-week trial during a single shift pattern, 60 decisions observed, with no comparison against what the operator would have chosen.\\n\\nFailure-mode analysis: A short, informal list of failure modes was named in the submission, without likelihood, severity, or which control catches each one.\\n\\nAudit findings: The applicant's own team reviewed a sample of its own logs internally; no independent audit was performed.\\n\\nBaseline comparison: A high-level summary claims the agent 'performs comparably' to human operators, without a decision-by-decision breakdown.\"}",
+  "expected": {
+    "must_reject": false,
+    "reasons": [],
+    "_evidence": {
+      "test_results": "thin",
+      "failure_mode_analysis": "thin",
+      "audit_findings": "thin",
+      "baseline_comparison": "thin"
+    }
+  }
+}

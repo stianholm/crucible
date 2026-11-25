@@ -1,0 +1,9 @@
+{
+  "task_id": "flatten_list-03",
+  "input": "{\"op\": \"flatten_list\", \"args\": [[1, 2, 3]]}",
+  "expected": [
+    1,
+    2,
+    3
+  ]
+}

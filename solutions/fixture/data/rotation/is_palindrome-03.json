@@ -1,0 +1,5 @@
+{
+  "task_id": "is_palindrome-03",
+  "input": "{\"op\": \"is_palindrome\", \"args\": [\"A man a plan a canal Panama\"]}",
+  "expected": true
+}

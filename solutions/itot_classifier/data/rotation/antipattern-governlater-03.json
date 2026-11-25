@@ -1,0 +1,17 @@
+{
+  "task_id": "antipattern-governlater-03",
+  "input": "{\"proposal_id\": \"antipattern-governlater-03\", \"description\": \"Engineering-data gateway live, governance for scope changes deferred\", \"touches_sis\": false, \"needs_write\": false, \"data_type\": \"engineering\", \"within_approved_scope\": true, \"pre_approved_narrow_class\": false, \"is_pilot\": false, \"pilot_uses_full_gateway\": true, \"treats_ot_as_plain_api\": false, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": false, \"evaluation_only_nightly_batch\": false, \"governance_defined_upfront\": false}",
+  "expected": {
+    "gateway": "engineering_data",
+    "approved": true,
+    "required_controls": [
+      "identity_translation_readonly",
+      "source_scope_review",
+      "audit_every_read"
+    ],
+    "anti_patterns_detected": [
+      "we_will_govern_it_later"
+    ],
+    "reasoning": "Read-only engineering data \u2014 routes through the engineering data gateway."
+  }
+}

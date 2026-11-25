@@ -1,0 +1,23 @@
+# Resolved 2026-10-16 inside nvcr.io/nvidia/pytorch:26.08-py3 (train/.container-digest)
+# from requirements.txt: every package pip added or changed. Torch, triton and
+# the CUDA stack are the image's own and deliberately absent.
+accelerate==1.15.0
+annotated-doc==0.0.5
+bitsandbytes==0.50.2
+cut-cross-entropy==25.1.1
+datasets==4.8.5
+diffusers==0.41.0
+fsspec==2026.2.0
+hf_transfer==0.1.9
+huggingface_hub==1.33.0
+msgspec==0.22.0
+nest-asyncio==1.6.0
+peft==0.21.2
+sentencepiece==0.2.2
+shellingham==1.5.4
+structlog==26.1.0
+transformers==5.17.0
+trl==1.15.0
+typer==0.27.3
+unsloth==2026.10.6
+unsloth_zoo==2026.10.6

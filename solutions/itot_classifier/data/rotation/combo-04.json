@@ -1,0 +1,19 @@
+{
+  "task_id": "combo-04",
+  "input": "{\"proposal_id\": \"combo-04\", \"description\": \"Not-approved operational change that also relies on agent self-restraint instead of an allow-list\", \"touches_sis\": false, \"needs_write\": true, \"data_type\": \"live_process\", \"within_approved_scope\": false, \"pre_approved_narrow_class\": false, \"is_pilot\": false, \"pilot_uses_full_gateway\": true, \"treats_ot_as_plain_api\": false, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": true, \"evaluation_only_nightly_batch\": false, \"governance_defined_upfront\": true}",
+  "expected": {
+    "gateway": "operational_change",
+    "approved": false,
+    "required_controls": [
+      "identity_translation_writescoped",
+      "action_allowlist",
+      "time_window_constraints",
+      "signed_chain_audit",
+      "human_approval"
+    ],
+    "anti_patterns_detected": [
+      "agent_will_know_when_to_stop"
+    ],
+    "reasoning": "Needs a write to the OT side \u2014 routes through the operational change gateway, narrow by design. Not approved until the gateway's allow-list is widened."
+  }
+}

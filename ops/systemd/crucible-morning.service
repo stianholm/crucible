@@ -1,0 +1,6 @@
+[Unit]
+Description=crucible morning report (PHASE-6.md)
+
+[Service]
+Type=oneshot
+ExecStart=@REPO@/ops/morning.sh

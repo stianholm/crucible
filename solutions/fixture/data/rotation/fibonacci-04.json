@@ -1,0 +1,5 @@
+{
+  "task_id": "fibonacci-04",
+  "input": "{\"op\": \"fibonacci\", \"args\": [10]}",
+  "expected": 55
+}

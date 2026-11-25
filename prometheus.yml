@@ -1,0 +1,6 @@
+scrape_configs:
+  - job_name: vllm
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['vllm-proposer:8000', 'vllm-judge:8001']

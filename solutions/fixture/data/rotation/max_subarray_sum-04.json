@@ -1,0 +1,5 @@
+{
+  "task_id": "max_subarray_sum-04",
+  "input": "{\"op\": \"max_subarray_sum\", \"args\": [[1, 2, 3, 4, 5]]}",
+  "expected": 15
+}

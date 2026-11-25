@@ -1,0 +1,7 @@
+[Unit]
+Description=crucible immediate alerts (PHASE-6.md)
+
+[Service]
+Type=oneshot
+ExecStart=@REPO@/ops/alerts.sh
+TimeoutStartSec=4min

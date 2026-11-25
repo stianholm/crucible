@@ -1,0 +1,5 @@
+{
+  "task_id": "binary_search-03",
+  "input": "{\"op\": \"binary_search\", \"args\": [[], 1]}",
+  "expected": -1
+}

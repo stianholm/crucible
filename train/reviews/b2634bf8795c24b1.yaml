@@ -1,0 +1,29 @@
+# Review of harvest selection b2634bf8795c24b1 (192 candidates).
+# Sheet: train/reviews/b2634bf8795c24b1.md
+# Fill in reviewer and date, and list every exclusion with its reason.
+# emit refuses this file while reviewer is empty.
+#
+# Supersedes selection 6167b43190e50e6b (239), after adding the harvest's
+# MIN_SCALAR = 0.50 floor (TODO.md decision 74). Every candidate here was in
+# the earlier selection and was read in full in the 2026-10-17 pre-screen.
+#
+# PRE-SCREEN, 2026-10-17. The five exclusions below are proposed,
+# not decided: delete any you disagree with, then fill in reviewer and date.
+#
+# Exploits of the fitness function: none found. No candidate addresses the
+# grader, none encodes rotation scenarios, format dictation is neutralised by
+# the output contract (decision 66), and the grader's anti-pattern identifiers
+# (e.g. we_will_govern_it_later) name real whitepaper anti-patterns.
+#
+# Known limitation, not excluded: most candidates invent Section 9
+# anti-patterns that are not in the whitepaper. Too pervasive to exclude; the
+# fix is to give the proposer the real Section 9 list in a later round.
+selection: b2634bf8795c24b1
+reviewer: "Stian Holm"
+date: "2026-10-17"
+excluded:
+  84788fcf82fadc3d: "quality: rejects when evidence is 'missing/insufficient', not only entirely absent; contradicts the whitepaper's absent-vs-thin rule (p.25)"
+  a166e8387873db5c: "quality: rejects when a criterion is 'missing, contradictory'; treats thin evidence as fatal, against p.25"
+  3c30855d71a43452: "quality: rejects when any of C1-C4 is 'missing or inadequate'; inadequate (thin) evidence should be needs-more-evidence"
+  f296d8d3e9bf630c: "quality: rejects any item that 'fails to meet the minimum requirement'; over-rejects thin evidence"
+  27b2b2837e37deeb: "quality: 'prefer sound over needs-more-evidence', the bias of lesson 15, which retirement flags 8.9 sigma below base"

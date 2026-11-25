@@ -1,0 +1,5 @@
+{
+  "task_id": "is_anagram-04",
+  "input": "{\"op\": \"is_anagram\", \"args\": [\"a\", \"a\"]}",
+  "expected": true
+}

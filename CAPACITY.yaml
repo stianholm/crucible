@@ -1,0 +1,242 @@
+# Machine and model capacity card. Measured once, shared by everything the
+# harness later onboards. Per-solution sizing lives in each solution's own
+# BASELINE.yaml (Phase 1). See PHASE-0.md.
+#
+# This file is filled in incrementally across Phase 0 tasks 0.5-0.8.
+
+measured_on: 2026-09-19   # final corrected sweep; task 0.1-0.4 infra stood up 2026-09-17
+container: nvcr.io/nvidia/vllm:26.08-py3
+container_digest_file: .container-digest
+vllm_version: 0.27.1+93523f72
+cuda: "13.4.1"
+
+# --- task 0.5: prompt profiles ---
+# Two characteristic request shapes. propose dominates a generation;
+# judge is high volume, tiny generations. Re-run the sweep and update this
+# file if either shape changes once a real solution's sizes are known.
+profiles:
+  - name: propose
+    input_tokens: 4096
+    output_tokens: 1024  # reverted to spec default — see "sweep #1 was
+                          # invalid" note below. The 768 cut was a reaction
+                          # to a corrupted measurement; re-decide once the
+                          # corrected sweep (sonnet dataset) is in.
+    stands_in_for: >
+      Parent candidate, task spec and retrieved lessons in, one mutation out.
+      The shape that dominates a generation.
+  - name: judge
+    input_tokens: 2048
+    output_tokens: 128
+    stands_in_for: >
+      Candidate output and rubric in, a score with brief justification out.
+      High volume, tiny generations.
+
+# --- sweep #1 was invalid, do not trust any numbers reported from it ---
+# `--dataset-name random` generates prompts from random token IDs, which
+# decode to genuine multilingual noise (real example: a jumble of Chinese,
+# Tamil, Cyrillic, Arabic and Korean fragments in one prompt). gpt-oss-120b
+# correctly recognises this as gibberish and tries to give a short "I don't
+# understand, can you clarify?" reply — a real, coherent, short completion.
+# `--ignore-eos` then forces the sampler to keep generating past the point
+# where the model tried to stop and hand off to the next harmony-format
+# channel, which produces a token sequence its reasoning parser
+# (openai_gptoss) cannot parse. The server 500s mid-stream with `Unexpected
+# token N while expecting start token N`. The benchmark client sees the
+# stream end and silently records whatever partial content arrived as a
+# *successful* completion — a 1024-token target request routinely came back
+# as ~20-90 actual tokens, with no error surfaced anywhere in the summary.
+# First sweep's headline numbers (11.35 tok/s single-stream, ~48 tok/s
+# aggregate ceiling, ~45-request KV-cache-bound concurrency) were computed
+# from this corrupted data and are wrong — probably by a wide margin, since
+# TPOT/ITL timing itself is still real for whatever tokens did arrive, but
+# the *workload shape* being measured was "give a short refusal" instead of
+# "generate 1024 tokens," which is not the propose profile at all.
+# Fix: switched bench/sweep.sh from --dataset-name random to the sonnet
+# dataset (real English text from vllm's own benchmarks/sonnet.txt) — a
+# coherent prompt doesn't trigger the model's short-refusal path, so
+# --ignore-eos never needs to force it past a natural stop point. Confirmed
+# with a 2-request smoke test: exactly 1024/1024 tokens generated, no error,
+# per-sequence rate ~26.4 tok/s — much closer to the plan's ~34 tok/s
+# planning assumption than the corrupted 11.35 figure suggested. All numbers
+# below are from the corrected (sonnet-dataset) sweep.
+
+# propose profile, sonnet dataset, gpt-oss-120b at --gpu-memory-utilization
+# 0.80 --max-num-seqs 256 --max-model-len 65536 (spec-aligned config, run
+# with observability stack stopped to isolate the model's real ceiling).
+# Full curve (concurrency: agg_tok/s, per_seq_tok/s, mean_ttft_s, p99_ttft_s):
+#   1:   32.5 / 33.55 / 1.0  /   2.1
+#   4:   71.9 / 17.94 / 2.1  /   3.9
+#   8:   99.2 / 12.74 / 2.3  /   7.3
+#  16:  136.5 /  8.80 / 3.6  /  14.8
+#  32:  173.4 /  5.61 / 5.8  /  30.1   <- knee: below real KV-cache ceiling,
+#                                         TTFT still reasonable
+#  64:  201.0 /  3.94 / 48.0 / 284.4   <- saturation: KV cache ceiling (see
+#                                         kv_cache_max_seqs) reached, TTFT
+#                                         explodes, doubling gain <10% from
+#                                         here on
+# 128:  216.0 /  4.14 / 305.6/ 514.2
+# 256:  217.9 /  4.03 / 823.4/1025.7
+#
+# judge profile, sonnet dataset, Qwen3-4B at --gpu-memory-utilization 0.09
+# --max-num-seqs 64 --max-model-len 16384 (run alongside proposer + full
+# observability stack — judge's footprint is small enough this doesn't
+# distort its own ceiling the way it would proposer's).
+# Full curve:
+#   1:   21.1 / 21.99 / 0.3  /  0.7
+#   4:   84.3 / 23.01 / 0.5  /  0.8
+#   8:  136.4 / 18.69 / 0.7  /  1.8
+#  16:  196.6 / 13.70 / 1.1  /  3.6   <- knee
+#  32:  212.0 / 10.44 / 6.1  / 15.1   <- saturation
+#  64:  211.6 / 10.15 / 22.7 / 30.6
+# 128:  214.4 / 10.01 / 56.1 / 68.7
+# 256:  214.2 /  9.95 /122.9 /144.1
+# Everything in profiles_measured is September's config, not the live one. The
+# propose numbers ran at --gpu-memory-utilization 0.80 with the stack stopped,
+# a 233,350-token KV cache. For the live config, read `remeasured` below.
+profiles_measured:
+  - profile: propose
+    knee_concurrency: 32
+    saturation_concurrency: 64
+    aggregate_tps: {at_knee: 173.4, at_saturation: 201.0}
+    per_seq_tps: {at_knee: 5.61}
+    ttft_p99_s: {at_knee: 30.1}
+    # GPU KV cache size (233,350 tokens, from the engine's own startup log) ÷
+    # (4096 input + 1024 output = 5120 tokens/request) — the real
+    # concurrent-request ceiling, independent of --max-num-seqs 256.
+    kv_cache_max_seqs: 45
+  - profile: judge
+    knee_concurrency: 16
+    saturation_concurrency: 32
+    aggregate_tps: {at_knee: 196.6, at_saturation: 212.0}
+    per_seq_tps: {at_knee: 13.70}
+    ttft_p99_s: {at_knee: 3.6}
+    # 43,872 tokens ÷ (2048 input + 128 output = 2176 tokens/request)
+    kv_cache_max_seqs: 20
+
+# 30-min hold, propose profile, concurrency 32, 305 requests, 0 failures,
+# 1825s duration. Sustained output_throughput 170.67 tok/s vs 173.4 tok/s
+# on the short sweep's own c=32 point — 0.98, essentially no derate.
+# CAVEAT: no thermal.csv for this run (the parallel nvidia-smi logger is
+# built into bench/sweep.sh but this was a standalone vllm bench serve
+# invocation that didn't include it) — the throughput-consistency argument
+# above is indirect evidence against throttling, not a verified thermal
+# trace. Re-run via sweep.sh's own sustained-run pattern if a thermal CSV
+# is specifically needed later.
+sustained_derate: 0.98
+client_timeout_s: 1200
+
+# --- re-measured 2026-11-05, decision 105: the live config ---
+# After the kernel, driver, toolkit and Docker updates. Same image digest, full
+# stack up, both KV caches at their compose.yaml pins (decision 70).
+# Curve (concurrency: agg_tok/s, per_seq_tok/s, mean_ttft_s, p99_ttft_s):
+#
+# propose, 92,991-token KV cache:
+#   1:   36.0 / 37.27 /    1.0 /    1.3
+#   4:   80.2 / 20.75 /    1.8 /    3.5
+#   8:  107.8 / 13.87 /    2.2 /    7.2
+#  16:  142.9 /  9.23 /    3.6 /   15.1   <- knee and saturation
+#  32:  138.5 /  6.72 /   69.2 /  160.5
+#  64:  141.4 /  6.94 /  271.3 /  385.5
+# 128:  142.5 /  6.92 /  671.7 /  886.0
+# 256:  142.4 /  6.69 / 1470.1 / 1795.9
+#
+# judge, 66,496-token KV cache:
+#   1:   22.2 / 23.16 /    0.3 /    0.6
+#   4:   88.3 / 24.31 /    0.6 /    0.8
+#   8:  140.8 / 19.43 /    0.7 /    1.9
+#  16:  199.1 / 13.96 /    1.1 /    3.8   <- knee
+#  32:  213.4 /  7.51 /    2.1 /    9.2   <- saturation
+#  64:  213.1 /  6.87 /   17.5 /   27.8
+# 128:  214.6 /  6.69 /   50.9 /   66.0
+# 256:  213.3 /  6.59 /  118.5 /  143.3
+#
+# The propose ceiling fell because the cache is smaller, not because of the
+# updates: at equal running counts under the same pin, vLLM's own logs show
+# generation no slower after the update than before it. Decision 70 said the
+# pin left this file's figures unchanged; that was wrong for propose.
+#
+# The propose profile is a worst case. Real generations ran 32 requests at a
+# median 221 tok/s and 31% KV use (5,392 log samples, 2026-10-17 to 10-26),
+# because their requests are much smaller than 5,120 tokens. Population 32 is
+# unaffected. Requests averaging above about 2,900 tokens would queue at 32.
+remeasured:
+  on: 2026-11-05
+  kernel: 7.0.0-1024-nvidia
+  nvidia_driver: 580.178.04
+  kv_cache_bytes: {proposer: 3649830912, judge: 9805234176}
+  profiles:
+    - profile: propose
+      knee_concurrency: 16
+      saturation_concurrency: 16
+      aggregate_tps: {at_knee: 142.9, at_saturation: 142.9}
+      per_seq_tps: {at_knee: 9.23}
+      ttft_p99_s: {at_knee: 15.1}
+      kv_cache_max_seqs: 18    # 92,991 tokens / 5120 tokens per request
+    - profile: judge
+      knee_concurrency: 16
+      saturation_concurrency: 32
+      aggregate_tps: {at_knee: 199.1, at_saturation: 213.4}
+      per_seq_tps: {at_knee: 13.96}
+      ttft_p99_s: {at_knee: 3.8}
+      kv_cache_max_seqs: 30    # 66,496 tokens / 2176 tokens per request
+  real_generation_at_32: {median_tps: 221, median_kv_use_pct: 31}
+
+generation:
+  candidates: 64
+  # ceil(64/32) * (1024/5.61 + 30.1) / 0.98, propose profile
+  est_wall_clock_s: 434
+
+# --- Phase 0's settings, and how they differ from PHASE-0.md's suggestions ---
+# See docs/platform.md for the full memory accounting behind these numbers.
+# NOT final, despite the label this section used to carry — Phase 3 (task
+# 3.1, TODO.md decision 16) bumped the proposer further, to --max-num-seqs
+# 256 --gpu-memory-utilization 0.80 --max-model-len 65536, for real
+# concurrency; decision 22 later reverted only gpu-memory-utilization to
+# 0.74 (to make room for judge), leaving max-num-seqs/max-model-len at the
+# Phase 3 values. compose.yaml is the actual current config; this section
+# is what was measured here in Phase 0, kept for the memory-accounting
+# reasoning below, not as a claim about what is deployed today. Caught
+# stale by the session-review workflow, 2026-09-22.
+#
+# proposer: --gpu-memory-utilization 0.74 --max-num-seqs 64 --max-model-len 16384
+# judge:    --gpu-memory-utilization 0.09 --max-num-seqs 64 --max-model-len 16384
+#
+# - gpu-memory-utilization: spec suggested 0.70 for proposer / 0.06 for
+#   judge. Neither works on this hardware. gpt-oss-120b's real loaded
+#   footprint is 82.8 GiB weights + ~4.5 GiB CUDA graph/activation overhead
+#   = ~87.3 GiB fixed cost, before any KV cache — 0.70 (85.1 GiB budget)
+#   is already short of that. Qwen3-4B's own weights (7.56 GiB) exceed
+#   0.06's 7.3 GiB budget. Final values leave proposer a real but small KV
+#   cache (0.76 GiB → ~3.4 concurrent propose-profile requests) and judge a
+#   workable one (see CAPACITY.yaml's judge sweep) — small deliberately, to
+#   leave room for the observability stack and desktop session. The sweep
+#   above shows this is currently a safe trade: even this constrained,
+#   generation wall-clock (~7-11 min for 64 candidates) is far under
+#   PHASE-0.md's 40-minute gate.
+# - proposer --max-num-seqs / --max-model-len: reduced from the spec's
+#   256 / 65536. This barely affects memory (weights dominate; cutting
+#   256→64 only freed ~3 GiB) but matches the sweep's own finding —
+#   saturation is reached at concurrency 64, and the real KV-cache ceiling
+#   (~45 requests at 0.80 utilization, less at 0.74) was always well under
+#   256 anyway. 16384 is still >3x the propose profile's 5120-token need.
+# - The two vLLM engines cannot cold-start simultaneously: their startup-time
+#   memory profiling is not isolated from each other on this unified-memory
+#   platform, so starting both at once starves whichever initializes second.
+#   compose.yaml enforces proposer-healthy-before-judge-starts via a
+#   healthcheck + depends_on.
+# - Langfuse pinned to major version 3, not 4: LiteLLM's bundled Langfuse
+#   client cannot speak v4's ingestion API (every callback failed with a
+#   generic "Bad request"). v3 works cleanly with the same ClickHouse/
+#   Redis/MinIO/Postgres topology PHASE-0.md describes.
+# - `vllm bench serve --dataset-name random` silently corrupts any
+#   `--ignore-eos` sweep against gpt-oss-120b (see the sweep-invalidation
+#   note above) — use `--dataset-name sonnet` instead. This is the most
+#   expensive lesson of Phase 0: the first sweep looked completely normal
+#   (zero failed requests) and was still measuring the wrong thing.
+#
+# Net effect, full stack + normal desktop session (not headless): observability
+# itself is lean (4.43 GiB total, measured via docker stats — smaller than
+# expected). The real pressure is proposer's fixed 82.8 GiB of weights plus
+# desktop/OS overhead (~10.6 GiB). System available: ~5 GiB. PHASE-0.md task
+# 0.7's own gate — "remaining-for-sandboxes above 16 GiB" — is not currently
+# met. See docs/platform.md's last section for the options before Phase 3.

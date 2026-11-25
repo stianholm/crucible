@@ -1,0 +1,5 @@
+{
+  "task_id": "count_vowels-02",
+  "input": "{\"op\": \"count_vowels\", \"args\": [\"xyz\"]}",
+  "expected": 0
+}

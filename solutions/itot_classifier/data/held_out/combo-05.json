@@ -1,0 +1,19 @@
+{
+  "task_id": "combo-05",
+  "input": "{\"proposal_id\": \"combo-05\", \"description\": \"Pre-approved narrow class, nightly-eval-only, governance deferred \\u2014 three issues on one operational-change proposal\", \"touches_sis\": false, \"needs_write\": true, \"data_type\": \"live_process\", \"within_approved_scope\": true, \"pre_approved_narrow_class\": true, \"is_pilot\": false, \"pilot_uses_full_gateway\": true, \"treats_ot_as_plain_api\": false, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": false, \"evaluation_only_nightly_batch\": true, \"governance_defined_upfront\": false}",
+  "expected": {
+    "gateway": "operational_change",
+    "approved": true,
+    "required_controls": [
+      "identity_translation_writescoped",
+      "action_allowlist",
+      "time_window_constraints",
+      "signed_chain_audit"
+    ],
+    "anti_patterns_detected": [
+      "we_will_govern_it_later",
+      "eval_runs_nightly"
+    ],
+    "reasoning": "Needs a write to the OT side \u2014 routes through the operational change gateway, narrow by design."
+  }
+}

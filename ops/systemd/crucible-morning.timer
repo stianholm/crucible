@@ -1,0 +1,10 @@
+[Unit]
+Description=crucible morning report at 08:00
+
+[Timer]
+OnCalendar=*-*-* 08:00:00
+# A report missed while the box was off is written at the next boot.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

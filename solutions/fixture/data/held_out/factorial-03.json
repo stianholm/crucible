@@ -1,0 +1,5 @@
+{
+  "task_id": "factorial-03",
+  "input": "{\"op\": \"factorial\", \"args\": [5]}",
+  "expected": 120
+}

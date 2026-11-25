@@ -1,0 +1,302 @@
+[
+ {
+  "id": "arithmetic-00",
+  "family": "arithmetic",
+  "question": "Compute ((46764 * 13975 - 67390 * 288) div 2991) mod 8938 + (46764 mod 288) * (67390 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "14210"
+ },
+ {
+  "id": "arithmetic-01",
+  "family": "arithmetic",
+  "question": "Compute ((78618 * 79535 - 78362 * 872) div 6403) mod 3888 + (78618 mod 872) * (78362 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "13113"
+ },
+ {
+  "id": "arithmetic-02",
+  "family": "arithmetic",
+  "question": "Compute ((72602 * 77238 - 62017 * 664) div 2415) mod 3923 + (72602 mod 664) * (62017 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "9832"
+ },
+ {
+  "id": "arithmetic-03",
+  "family": "arithmetic",
+  "question": "Compute ((34286 * 31441 - 43136 * 423) div 8363) mod 3237 + (34286 mod 423) * (43136 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "2038"
+ },
+ {
+  "id": "arithmetic-04",
+  "family": "arithmetic",
+  "question": "Compute ((10568 * 52843 - 33347 * 919) div 1204) mod 2381 + (10568 mod 919) * (33347 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "35151"
+ },
+ {
+  "id": "arithmetic-05",
+  "family": "arithmetic",
+  "question": "Compute ((57255 * 52379 - 60016 * 621) div 6611) mod 9111 + (57255 mod 621) * (60016 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "10165"
+ },
+ {
+  "id": "arithmetic-06",
+  "family": "arithmetic",
+  "question": "Compute ((59699 * 31513 - 41539 * 416) div 6285) mod 6780 + (59699 mod 416) * (41539 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "9894"
+ },
+ {
+  "id": "arithmetic-07",
+  "family": "arithmetic",
+  "question": "Compute ((62545 * 52071 - 66254 * 410) div 6996) mod 2154 + (62545 mod 410) * (66254 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "1356"
+ },
+ {
+  "id": "arithmetic-08",
+  "family": "arithmetic",
+  "question": "Compute ((28152 * 85001 - 32779 * 962) div 6773) mod 7826 + (28152 mod 962) * (32779 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "27167"
+ },
+ {
+  "id": "arithmetic-09",
+  "family": "arithmetic",
+  "question": "Compute ((59495 * 15064 - 47833 * 742) div 5819) mod 6026 + (59495 mod 742) * (47833 mod 97), where div is floor division and mod the non-negative remainder.",
+  "answer": "4914"
+ },
+ {
+  "id": "calendar-00",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 80677 days after 14 May 1881? Answer as YYYY-MM-DD.",
+  "answer": "2102-04-03"
+ },
+ {
+  "id": "calendar-01",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 20729 days before 14 December 1878? Answer as YYYY-MM-DD.",
+  "answer": "1822-03-14"
+ },
+ {
+  "id": "calendar-02",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 66326 days after 26 August 2051? Answer as YYYY-MM-DD.",
+  "answer": "2233-03-31"
+ },
+ {
+  "id": "calendar-03",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 43068 days before 13 February 1845? Answer as YYYY-MM-DD.",
+  "answer": "1727-03-16"
+ },
+ {
+  "id": "calendar-04",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 39844 days after 16 November 1847? Answer as YYYY-MM-DD.",
+  "answer": "1956-12-18"
+ },
+ {
+  "id": "calendar-05",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 40176 days after 16 October 1900? Answer as YYYY-MM-DD.",
+  "answer": "2010-10-15"
+ },
+ {
+  "id": "calendar-06",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 92183 days after 28 February 1992? Answer as YYYY-MM-DD.",
+  "answer": "2244-07-19"
+ },
+ {
+  "id": "calendar-07",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 71990 days after 23 August 1891? Answer as YYYY-MM-DD.",
+  "answer": "2088-09-28"
+ },
+ {
+  "id": "calendar-08",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 58852 days after 25 April 1857? Answer as YYYY-MM-DD.",
+  "answer": "2018-06-12"
+ },
+ {
+  "id": "calendar-09",
+  "family": "calendar",
+  "question": "In the Gregorian calendar, what date is 47751 days after 04 November 1803? Answer as YYYY-MM-DD.",
+  "answer": "1934-07-31"
+ },
+ {
+  "id": "code-00",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [9]\nfor i in range(1, 18):\n    v = (xs[-1] * 3 + i) % 52\n    if v % 7 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "122"
+ },
+ {
+  "id": "code-01",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [4]\nfor i in range(1, 32):\n    v = (xs[-1] * 6 + i) % 45\n    if v % 6 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "202"
+ },
+ {
+  "id": "code-02",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [6]\nfor i in range(1, 34):\n    v = (xs[-1] * 9 + i) % 38\n    if v % 5 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "137"
+ },
+ {
+  "id": "code-03",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [8]\nfor i in range(1, 30):\n    v = (xs[-1] * 9 + i) % 24\n    if v % 3 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "231"
+ },
+ {
+  "id": "code-04",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [2]\nfor i in range(1, 29):\n    v = (xs[-1] * 6 + i) % 45\n    if v % 6 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "256"
+ },
+ {
+  "id": "code-05",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [4]\nfor i in range(1, 18):\n    v = (xs[-1] * 9 + i) % 52\n    if v % 7 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "258"
+ },
+ {
+  "id": "code-06",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [8]\nfor i in range(1, 22):\n    v = (xs[-1] * 5 + i) % 31\n    if v % 4 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "67"
+ },
+ {
+  "id": "code-07",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [1]\nfor i in range(1, 38):\n    v = (xs[-1] * 2 + i) % 38\n    if v % 5 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "448"
+ },
+ {
+  "id": "code-08",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [1]\nfor i in range(1, 19):\n    v = (xs[-1] * 9 + i) % 52\n    if v % 7 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "141"
+ },
+ {
+  "id": "code-09",
+  "family": "code",
+  "question": "What does this Python program print?\n\n```python\nxs = [1]\nfor i in range(1, 27):\n    v = (xs[-1] * 8 + i) % 45\n    if v % 6 == 0:\n        xs.append(v)\n    elif len(xs) > 2 and v > xs[-2]:\n        xs[-2] = v - xs[-2]\n    else:\n        xs.append(xs[-1] + v % 5)\nprint(sum(xs) - len(xs) * xs[0])\n```",
+  "answer": "265"
+ },
+ {
+  "id": "ordering-00",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Di is not first or last. Ada is not first or last. Ed is not next to Di. Bo is not next to Ed. Exactly 3 people stand between Ed and Ada. Ed is somewhere ahead of Cy. Di is not next to Fay. Di is directly behind Cy. Exactly 1 people stand between Fay and Di. Give the queue from first to last as names separated by commas.",
+  "answer": "Ed, Fay, Cy, Di, Ada, Bo"
+ },
+ {
+  "id": "ordering-01",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Bo is not next to Di. Exactly 2 people stand between Bo and Di. Cy is not next to Ed. Ada is not next to Di. Exactly 4 people stand between Di and Ada. Exactly 3 people stand between Di and Cy. Exactly 3 people stand between Ada and Ed. Ada is somewhere ahead of Ed. Give the queue from first to last as names separated by commas.",
+  "answer": "Ada, Cy, Bo, Fay, Ed, Di"
+ },
+ {
+  "id": "ordering-02",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Exactly 3 people stand between Bo and Di. Di is not first or last. Bo is somewhere ahead of Di. Ed is not first or last. Cy is not first or last. Exactly 1 people stand between Ada and Fay. Fay is somewhere ahead of Di. Ed is not next to Bo. Give the queue from first to last as names separated by commas.",
+  "answer": "Bo, Cy, Ed, Fay, Di, Ada"
+ },
+ {
+  "id": "ordering-03",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Ada is not first or last. Bo is not next to Fay. Exactly 3 people stand between Fay and Di. Ed is directly behind Di. Cy is not first or last. Ed is somewhere ahead of Ada. Exactly 1 people stand between Di and Ada. Give the queue from first to last as names separated by commas.",
+  "answer": "Bo, Di, Ed, Ada, Cy, Fay"
+ },
+ {
+  "id": "ordering-04",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Exactly 1 people stand between Ed and Di. Exactly 2 people stand between Bo and Ed. Fay is not next to Bo. Fay is not first or last. Fay is not next to Di. Exactly 1 people stand between Ed and Cy. Di is not next to Bo. Ed is somewhere ahead of Fay. Give the queue from first to last as names separated by commas.",
+  "answer": "Di, Ada, Ed, Fay, Cy, Bo"
+ },
+ {
+  "id": "ordering-05",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Exactly 2 people stand between Di and Ed. Fay is not first or last. Ed is somewhere ahead of Cy. Bo is not next to Fay. Ed is not next to Fay. Exactly 2 people stand between Fay and Cy. Exactly 1 people stand between Fay and Ed. Di is not first or last. Ed is somewhere ahead of Bo. Give the queue from first to last as names separated by commas.",
+  "answer": "Ed, Ada, Fay, Di, Bo, Cy"
+ },
+ {
+  "id": "ordering-06",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Cy is not next to Di. Di is not next to Ada. Cy is not first or last. Cy is somewhere ahead of Ed. Ed is somewhere ahead of Fay. Ada is directly behind Ed. Exactly 4 people stand between Fay and Di. Give the queue from first to last as names separated by commas.",
+  "answer": "Di, Bo, Cy, Ed, Ada, Fay"
+ },
+ {
+  "id": "ordering-07",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Exactly 1 people stand between Fay and Di. Di is not first or last. Exactly 1 people stand between Ed and Ada. Fay is not first or last. Ada is not next to Cy. Di is somewhere ahead of Cy. Exactly 2 people stand between Di and Ed. Exactly 2 people stand between Bo and Fay. Bo is not first or last. Give the queue from first to last as names separated by commas.",
+  "answer": "Ed, Fay, Ada, Di, Bo, Cy"
+ },
+ {
+  "id": "ordering-08",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Bo is not next to Ada. Di is somewhere ahead of Ada. Exactly 2 people stand between Fay and Ed. Fay is not first or last. Bo is not next to Ed. Bo is directly behind Di. Exactly 3 people stand between Cy and Ed. Give the queue from first to last as names separated by commas.",
+  "answer": "Ed, Di, Bo, Fay, Cy, Ada"
+ },
+ {
+  "id": "ordering-09",
+  "family": "ordering",
+  "question": "Six people, Ada, Bo, Cy, Di, Ed, Fay, stand in a queue. Ed is not next to Bo. Ed is somewhere ahead of Ada. Ed is not next to Fay. Ada is not first or last. Ed is not first or last. Di is not first or last. Bo is somewhere ahead of Ada. Cy is somewhere ahead of Di. Exactly 2 people stand between Bo and Di. Give the queue from first to last as names separated by commas.",
+  "answer": "Bo, Cy, Ed, Di, Ada, Fay"
+ },
+ {
+  "id": "strings-00",
+  "family": "strings",
+  "question": "Reverse each of the words canyon, granite, quartz, velvet, falcon, lantern, marble, saffron, topaz, cinder, sort the reversed words alphabetically, and concatenate the first letters of the first five. What string do you get?",
+  "answer": "eennn"
+ },
+ {
+  "id": "strings-01",
+  "family": "strings",
+  "question": "Take the words harbor, granite, glacier, quartz, velvet, meadow, saffron, raven, willow, canyon. Sort them by their second-to-last letter, breaking ties by word length and then alphabetically. Give the word in position 4 (counting from 1).",
+  "answer": "canyon"
+ },
+ {
+  "id": "strings-02",
+  "family": "strings",
+  "question": "Take the words glacier, raven, orchid, saffron, ember, granite, velvet, topaz, thistle, canyon. Sort them by their second-to-last letter, breaking ties by word length and then alphabetically. Give the word in position 3 (counting from 1).",
+  "answer": "raven"
+ },
+ {
+  "id": "strings-03",
+  "family": "strings",
+  "question": "Take the words raven, juniper, velvet, orchid, meadow, saffron, harbor, falcon, cinder, thistle. Sort them by their second-to-last letter, breaking ties by word length and then alphabetically. Give the word in position 5 (counting from 1).",
+  "answer": "orchid"
+ },
+ {
+  "id": "strings-04",
+  "family": "strings",
+  "question": "Reverse each of the words glacier, harbor, lantern, willow, quartz, ember, meadow, canyon, saffron, velvet, sort the reversed words alphabetically, and concatenate the first letters of the first five. What string do you get?",
+  "answer": "nnnrr"
+ },
+ {
+  "id": "strings-05",
+  "family": "strings",
+  "question": "Take the words thistle, cinder, cobalt, velvet, orchid, falcon, juniper, raven, lantern, willow. Sort them by their second-to-last letter, breaking ties by word length and then alphabetically. Give the word in position 4 (counting from 1).",
+  "answer": "juniper"
+ },
+ {
+  "id": "strings-06",
+  "family": "strings",
+  "question": "For the words granite, glacier, raven, cobalt, cinder, falcon, juniper, topaz, thistle, lantern, count the vowels (a, e, i, o, u) in each word, then add up the counts of only those words whose count is odd. What is the total?",
+  "answer": "9"
+ },
+ {
+  "id": "strings-07",
+  "family": "strings",
+  "question": "Reverse each of the words saffron, topaz, cinder, raven, orchid, falcon, glacier, lantern, harbor, velvet, sort the reversed words alphabetically, and concatenate the first letters of the first five. What string do you get?",
+  "answer": "dnnnn"
+ },
+ {
+  "id": "strings-08",
+  "family": "strings",
+  "question": "For the words harbor, falcon, glacier, canyon, meadow, ember, velvet, cobalt, granite, cinder, count the vowels (a, e, i, o, u) in each word, then add up the counts of only those words whose count is odd. What is the total?",
+  "answer": "9"
+ },
+ {
+  "id": "strings-09",
+  "family": "strings",
+  "question": "Take the words cinder, thistle, raven, meadow, velvet, willow, cobalt, topaz, juniper, saffron. Sort them by their second-to-last letter, breaking ties by word length and then alphabetically. Give the word in position 6 (counting from 1).",
+  "answer": "cobalt"
+ }
+]

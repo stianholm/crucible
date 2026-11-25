@@ -1,0 +1,17 @@
+solution_id: fixture
+what: 'The harness''s own regression test: a small Python module implementing a fixed
+  set of well-known small computations, used to validate the search machinery on a
+  domain whose ground truth never moves.'
+form: A Python module with one entrypoint function that dispatches to different small
+  computations by an "op" field in its JSON input.
+invocation: "def solve(task_input: str, ctx) -> str \u2014 task_input is JSON {\"\
+  op\": <name>, \"args\": [...]}, returns json.dumps(result)"
+mutation_surface: "Everything inside the EVOLVE-BLOCK markers in candidate/candidate.py\
+  \ \u2014 the full dispatch/computation logic for all operations. The solve() wrapper\
+  \ (JSON parse/serialise) and the entrypoint signature are frozen scaffolding."
+good_vs_bad: "Fraction of the 52 tasks whose output exactly matches the reference\
+  \ implementation in checks/reference.py (float comparisons use a tolerance). No\
+  \ partial credit within a single task \u2014 each task is pass or fail; the gradient\
+  \ comes from averaging across many tasks."
+measurement: automated_checks
+executes_code: true

@@ -1,0 +1,11 @@
+# Top-level training dependencies (PLAN.md: Unsloth for LoRA/QLoRA, TRL for
+# SFT and later preference tuning). Resolved once inside the pinned base image
+# and frozen to requirements.lock, which is what the image installs.
+unsloth
+unsloth_zoo
+transformers
+peft
+trl
+datasets
+bitsandbytes
+accelerate

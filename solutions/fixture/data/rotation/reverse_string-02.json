@@ -1,0 +1,5 @@
+{
+  "task_id": "reverse_string-02",
+  "input": "{\"op\": \"reverse_string\", \"args\": [\"\"]}",
+  "expected": ""
+}

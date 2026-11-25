@@ -1,0 +1,5 @@
+{
+  "task_id": "is_palindrome-01",
+  "input": "{\"op\": \"is_palindrome\", \"args\": [\"racecar\"]}",
+  "expected": true
+}

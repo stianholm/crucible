@@ -1,0 +1,5 @@
+{
+  "task_id": "is_prime-03",
+  "input": "{\"op\": \"is_prime\", \"args\": [17]}",
+  "expected": true
+}

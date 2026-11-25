@@ -1,0 +1,21 @@
+{
+  "task_id": "combo-01",
+  "input": "{\"proposal_id\": \"combo-01\", \"description\": \"Pilot wired direct, treated as a plain API, governance deferred \\u2014 three anti-patterns at once\", \"touches_sis\": false, \"needs_write\": true, \"data_type\": \"live_process\", \"within_approved_scope\": true, \"pre_approved_narrow_class\": false, \"is_pilot\": true, \"pilot_uses_full_gateway\": false, \"treats_ot_as_plain_api\": true, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": false, \"evaluation_only_nightly_batch\": false, \"governance_defined_upfront\": false}",
+  "expected": {
+    "gateway": "operational_change",
+    "approved": true,
+    "required_controls": [
+      "identity_translation_writescoped",
+      "action_allowlist",
+      "time_window_constraints",
+      "signed_chain_audit",
+      "human_approval"
+    ],
+    "anti_patterns_detected": [
+      "pilot_direct_connect",
+      "just_an_api",
+      "we_will_govern_it_later"
+    ],
+    "reasoning": "Needs a write to the OT side \u2014 routes through the operational change gateway, narrow by design."
+  }
+}

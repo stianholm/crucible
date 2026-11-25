@@ -1,0 +1,14 @@
+{
+  "task_id": "mixed-05",
+  "input": "{\"proposal_id\": \"mixed-05\", \"narrative\": \"An operations team has submitted a capability case to adjust the temperature ramp rate on the R-7 batch reactor without per-action human approval, through the operational change gateway.\\n\\nTest results: A two-week trial during a single shift pattern, 120 decisions observed, with no comparison against what the operator would have chosen.\\n\\nFailure-mode analysis: A formal FMEA covering 120 identified failure modes, each with an estimated likelihood, severity, and the specific gateway control that catches it before it reaches the OT side.\\n\\nAudit findings: An independent internal audit team reviewed 120 months of shadow-mode logs and found zero unlogged or unattributed actions.\\n\\nBaseline comparison: A high-level summary claims the agent 'performs comparably' to human operators, without a decision-by-decision breakdown.\"}",
+  "expected": {
+    "must_reject": false,
+    "reasons": [],
+    "_evidence": {
+      "test_results": "thin",
+      "failure_mode_analysis": "thorough",
+      "audit_findings": "thorough",
+      "baseline_comparison": "thin"
+    }
+  }
+}

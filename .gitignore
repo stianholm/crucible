@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.key
+
+# Harness runtime output — regenerable or backed up separately, see docs/backup.md
+bench/results/
+adapters/
+*.dump
+*.jsonl
+solutions/*/candidates/
+logs/
+state/
+
+# Model weights and caches live outside the repo
+models/
+*.safetensors
+*.gguf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Reference material with its own public URL — kept locally, not duplicated in git
+ssrn-6866600.pdf
+
+# Harvest review sheets: regenerable by `python -m train.harvest review`.
+# The review files (*.yaml) beside them are the record and are committed.
+train/reviews/*.md
+
+# Written by Unsloth inside the training container (cwd is the repo)
+unsloth_compiled_cache/
+reports/morning/
+reports/generations/

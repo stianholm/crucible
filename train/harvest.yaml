@@ -1,0 +1,42 @@
+# PHASE-5.md task 5.1: which runs the training set is harvested from.
+#
+# Eligibility is a fitness question. A claim is only a training signal under
+# the fitness it was earned against, and capability_case's fitness changed
+# repeatedly before settling (TODO.md decisions 40, 53, 57, 66). Only runs
+# under the fitness in force now are listed: corrected worker, class-balanced
+# quality, k=9, output contract appended after the evolved instructions, judge
+# failures as missing data. That is decision 67's ablation and nothing earlier.
+#
+# `reports` is where claims come from for runs made before 2026-10-16, when
+# iteration.accepted started recording them (harness/generation.py). Leave it
+# out for later runs and the harvest reads the column instead.
+#
+# Arm B runs are included. Their proposer contexts carry the lesson block,
+# which is what the proposer actually saw, and training on the real context is
+# the point of the exercise.
+
+sources:
+  - solution_id: capability_case
+    run_id: fa925c34-5ea2-4f88-94b7-35f740e4ad63
+    label: abl3-arm-a1
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-a1.md
+  - solution_id: capability_case
+    run_id: 08585dcf-958c-4d39-a511-f9a5f6592c72
+    label: abl3-arm-b1
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-b1.md
+  - solution_id: capability_case
+    run_id: 89d27cea-df6c-4ee5-8226-46452aefa7d2
+    label: abl3-arm-a2
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-a2.md
+  - solution_id: capability_case
+    run_id: eabc1bc9-dd9c-48fe-aa63-0f589a317710
+    label: abl3-arm-b2
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-b2.md
+  - solution_id: capability_case
+    run_id: b8b4a37c-104e-42bc-a236-ec15d9c2acf4
+    label: abl3-arm-a3
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-a3.md
+  - solution_id: capability_case
+    run_id: edc8af11-8f08-49a4-bcd6-9c2db76a15e9
+    label: abl3-arm-b3
+    reports: solutions/capability_case/results/GENERATION-*-abl3-arm-b3.md

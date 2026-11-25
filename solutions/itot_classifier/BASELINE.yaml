@@ -1,0 +1,66 @@
+# BASELINE.yaml — itot_classifier. See PHASE-1.md task 1.7.
+#
+# solution_sha is a content hash (sha256 of candidate/candidate.py), not a
+# git commit sha. Re-measure and update this field if the incumbent ever
+# changes.
+measured_on: 2026-09-21
+solution_sha: sha256:6ef332bc6e52c680cb35ed62b077a5694634f045aad431b6bea97e915b218f80
+fitness_version: 1
+
+task_set:
+  dev: 7
+  rotation: 23
+  held_out: 27
+  held_out_sha256: 5c3631d8cc1c963f4d064ef5ebfd1b1d872a33e42dc821afd1261b42d74e1095
+  split_rule: sha256(task_id) % 100
+
+# 57 scenarios total, generated from checks/generate_tasks.py's SCENARIOS
+# list (never hand-typed expected values — build_tasks() derives `expected`
+# by calling checks/reference.py's classify() directly). See the original
+# BASELINE.yaml's history (git log) for coverage detail — unchanged since
+# the first measurement.
+
+baseline:
+  quality_mean: 1.0                    # rotation — promoted incumbent, see below
+  scalar_mean: 0.9990458737351203
+  noise_sigma: 0.0                     # fully deterministic scorer, unchanged
+  held_out_quality: 1.0
+
+# This is no longer the original onboarding baseline (0.862 rotation,
+# 0.823 held-out, three deliberate bugs). That incumbent was hill-climbed
+# to a fix in a single iteration (RUN.md, run f551899b, candidate
+# 6f744ecb3b388109, parent cac1371ba01dbaff) and independently confirmed
+# at 1.0/1.0 by an equal-budget population search (GENERATION-000.md) —
+# both searches converged to the same fix, because the task description
+# given to the proposer was close enough to a complete algorithm spec
+# that the correct answer was derivable in one shot (see PHASE-3.md task
+# 3.9's second data point). The winner is promoted here because, unlike
+# the fixture, this solution is not a permanent regression scaffold — the
+# point was a working classifier, and it now is one.
+#
+# Practical consequence: quality_mean and held_out_quality are both
+# already at the ceiling (1.0). There is currently no headroom left for a
+# search loop to exploit against this task set. Any future improvement
+# here requires expanding the task set itself — new anti-patterns from a
+# whitepaper revision, ambiguous edge cases the current 57 scenarios don't
+# cover, proposals that combine flags in ways not yet represented — not a
+# bug fix against the existing 57.
+
+judge:
+  model: null
+  rubric_version: null
+  human_agreement: null
+  calls_per_eval: 0
+
+cost:
+  eval_wall_s_p50: 0.18685176852159202
+  eval_tokens_p50: 0
+
+feasibility:
+  candidates_per_generation: 64
+  sandbox_slots: 8
+  # 64 x 23 x 0.1869s = 275.1s serial; / 8 slots ~= 34.4s per generation's
+  # eval cost. Unchanged in shape from the original measurement — the
+  # promoted candidate's runtime is not meaningfully different from the
+  # original incumbent's.
+  est_generation_eval_s: 34.4

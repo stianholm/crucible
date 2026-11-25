@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Run a harness command from any directory, with the repository root, .env and
+# the project's Python set up. Linked as ~/.local/bin/crucible.
+#
+#   crucible morning read                  mark today's report read
+#   crucible morning elite-read "notes"    record the weekly elite read
+#   crucible scheduler status              what runs next, and each solution's ladder state
+#   crucible alerts test                   send a test alert to every channel
+set -euo pipefail
+ROOT="$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)"
+cd "$ROOT"
+set -a; . ./.env; set +a
+mod="${1:?usage: crucible <module> [args...]   e.g. crucible morning read}"
+shift
+PYTHONPATH=. exec .venv/bin/python -m "harness.$mod" "$@" 2> >(grep -v "Warning" >&2)

@@ -1,0 +1,67 @@
+# BASELINE.yaml — the fixture. See PHASE-1.md task 1.7.
+#
+# solution_sha is a content hash (sha256 of candidate/candidate.py), not a
+# git commit sha — this file was measured before the first commit of
+# solutions/fixture/. Once committed, `git log -1 --format=%H -- solutions/
+# fixture/candidate/candidate.py` gives the git-sha equivalent; re-measure
+# and update this field if the incumbent ever changes.
+measured_on: 2026-09-20   # cost/timing re-measured after Phase 2 task 2.3 swapped in the real docker sandbox
+solution_sha: sha256:6cd02bc1a0731c9f89f7e91e429d4aa1d6094e3f210f48701ac2f1a1ed167f51
+fitness_version: 1
+
+task_set:
+  dev: 1
+  rotation: 31
+  held_out: 20
+  held_out_sha256: 799049901b97b286556a0a0414725790d12f2a1392a14187f3a58694cb104b82
+  split_rule: sha256(task_id) % 100
+
+# dev landed thin (1 task) — pure consequence of the deterministic hash
+# split applied to a 52-task fixture rather than the hundreds of items a
+# real solution would use. PHASE-1.md's "20 to 50" dev sizing guidance is
+# written for a real solution's task set; the fixture is deliberately much
+# smaller (its job is validating search machinery, not being a rigorous
+# statistical benchmark), so this is an accepted, documented deviation
+# rather than an oversight. Not worth gaming the split to rebalance it —
+# that would violate the "deterministic and reproducible from the rule"
+# property the split exists to guarantee.
+
+baseline:
+  quality_mean: 0.8064516129032258      # rotation, 25/31 tasks pass exactly
+  scalar_mean: 0.8055212533498003       # small latency penalty now real container startup is in the loop
+  noise_sigma: 0.0                      # fully deterministic scorer: no judge, no sampling, repeat runs bit-identical
+  held_out_quality: 0.85                # 17/20 tasks pass
+
+# noise_sigma is exactly 0, confirmed over repeat runs (bench/noise.py) both
+# before and after the sandbox swap — container startup adds wall-clock
+# variance but never changes which tasks pass, since correctness is still
+# fully deterministic. Phase 2's significance threshold (2x sigma) is
+# therefore also 0 for this solution — any candidate that scores strictly
+# higher than 0.806452 on rotation is a real improvement, no noise floor to
+# clear. This is a property of this fixture specifically (no judge, no
+# sampling); it will not hold for a solution that uses judged scoring.
+
+judge:
+  model: null            # fixture does not use the judge — deterministic scoring end to end
+  rubric_version: null
+  human_agreement: null
+  calls_per_eval: 0
+
+cost:
+  eval_wall_s_p50: 0.1855   # single task, real docker sandbox (container start/stop dominates over the ~0.0137s raw check time)
+  eval_tokens_p50: 0        # no LLM calls in scoring
+
+feasibility:
+  candidates_per_generation: 64
+  sandbox_slots: 1   # PHASE-2.md task 2.3: one slot, sequential. Phase 3 scales this to 8-64.
+  # 64 candidates x 31-task rotation set x 0.1855s/task, serial (one slot):
+  # 64 * 31 * 0.1855 ~= 367.9s ~= 6.1 min. Combined with Phase 0's proposer
+  # generation estimate (CAPACITY.yaml: ~434s for 64 candidates), total
+  # generation+eval wall clock ~= 802s ~= 13.4 min — still comfortably under
+  # the ~40 minute affordability threshold, though container overhead
+  # (~13.5x the raw check cost) now accounts for a real, non-trivial share
+  # of the total. Watch this number once Phase 3 parallelises across a
+  # sandbox pool — per-slot serial cost stops mattering once N slots run
+  # concurrently, but a cold image pull or daemon contention across a
+  # 64-way pool could reintroduce it.
+  est_generation_eval_s: 367.9

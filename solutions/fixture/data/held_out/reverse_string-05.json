@@ -1,0 +1,5 @@
+{
+  "task_id": "reverse_string-05",
+  "input": "{\"op\": \"reverse_string\", \"args\": [\"Crucible Harness\"]}",
+  "expected": "ssenraH elbicurC"
+}

@@ -1,0 +1,5 @@
+{
+  "task_id": "flatten_list-02",
+  "input": "{\"op\": \"flatten_list\", \"args\": [[]]}",
+  "expected": []
+}

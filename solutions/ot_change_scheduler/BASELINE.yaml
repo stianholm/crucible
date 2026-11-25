@@ -1,0 +1,57 @@
+# BASELINE.yaml: ot_change_scheduler. See PHASE-1.md task 1.7.
+#
+# solution_sha is a content hash of candidate/candidate.py, not a git sha.
+measured_on: 2026-10-26
+solution_sha: sha256:9955ad511f22f91424c5cb9c6a8ab56e04bb738ace84541f1540e8a426a3e091
+fitness_version: 1
+eval_set_version: f7213b3a8600   # harness.held_out.eval_set_version(); v2
+
+task_set:
+  dev: 9
+  rotation: 44
+  held_out: 47
+  held_out_sha256: d98b83a3fa74f16cf4f7b3d43df87f5d4c26de66c2ec1f0fd5ad21d6cc8fbd44
+  split_rule: sha256(task_id) % 100
+
+# Eval set v2 (decision 97): 100 instances, otcs2-0001 to otcs2-0100, from
+# checks/generate_tasks.py: 8 to 16 windows, 6 to 12 zones, 80 to 200
+# changes, crew capacity 40 to 60% of demand. All 100 proven optimal by
+# SciPy HiGHS within 300 s each. v1 (otcs-, 20 to 55 changes) saturated in a
+# day at held-out 0.998 (decision 96); its archive is parked as
+# ot_change_scheduler_v1 and its files are in git history.
+
+baseline:
+  # The incumbent is v1's winner (36cbe610ded0c305), promoted as v2's start.
+  quality_mean: 0.9498        # rotation
+  scalar_mean: 0.9403         # the latency term: it spends its 1.9 s budget
+  noise_sigma: null           # randomised search with a time budget; not yet measured
+  held_out_quality: 0.9472
+  # The original greedy seed on v2, for scale: rotation 0.7782, held-out 0.7723.
+  # v1 for comparison: greedy 0.792 / 0.803; incumbent 0.998 held-out.
+
+ladder:
+  # The smallest held-out gain the plateau ladder counts (decision 98). The
+  # default 0.01 was a guess for solutions whose noise two passes cannot
+  # estimate. Measured here on eval set v2, 2026-10-26/27: the two held-out
+  # passes differed by at most 0.0013 across nine checks. 0.003 is about
+  # twice that; under the default, a real +0.0084 gain went uncounted and
+  # the ladder would have gone dormant the same day.
+  sigma_floor: 0.003
+
+judge:
+  model: null
+  rubric_version: null
+  human_agreement: null
+  calls_per_eval: 0
+
+cost:
+  eval_wall_s_p50: 1.9        # the incumbent spends its time budget; the greedy seed took 0.2
+  eval_tokens_p50: 0
+
+feasibility:
+  candidates_per_generation: 32
+  sandbox_slots: 8
+  # Instances differ in size and structure, so a candidate is scored on 16
+  # of them: 32 x 16 x 2 s worst case / 8 slots = 128 s of evaluation per
+  # generation, small against the proposal phase.
+  tasks_per_candidate: 16

@@ -1,0 +1,17 @@
+{
+  "task_id": "absent-pair-03",
+  "input": "{\"proposal_id\": \"absent-pair-03\", \"narrative\": \"An operations team has submitted a capability case to trim boiler feedwater flow on Unit 4 during normal running without per-action human approval, through the operational change gateway.\\n\\nTest results: No test results were submitted with this case.\\n\\nFailure-mode analysis: A formal FMEA covering 150 identified failure modes, each with an estimated likelihood, severity, and the specific gateway control that catches it before it reaches the OT side.\\n\\nAudit findings: An independent internal audit team reviewed 120 months of shadow-mode logs and found zero unlogged or unattributed actions.\\n\\nBaseline comparison: No comparison against the human-approved baseline was offered.\"}",
+  "expected": {
+    "must_reject": true,
+    "reasons": [
+      "evidence dimension 'test_results' is entirely absent, not just thin (p.25)",
+      "evidence dimension 'baseline_comparison' is entirely absent, not just thin (p.25)"
+    ],
+    "_evidence": {
+      "test_results": "absent",
+      "failure_mode_analysis": "thorough",
+      "audit_findings": "thorough",
+      "baseline_comparison": "absent"
+    }
+  }
+}

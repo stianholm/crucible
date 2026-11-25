@@ -1,0 +1,9 @@
+[Unit]
+Description=crucible generation window from 06:30
+
+[Timer]
+OnCalendar=*-*-* 06:30:00
+# Not Persistent: a window missed at boot is not run late into the night.
+
+[Install]
+WantedBy=timers.target

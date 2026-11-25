@@ -1,0 +1,5 @@
+{
+  "task_id": "gcd-01",
+  "input": "{\"op\": \"gcd\", \"args\": [12, 18]}",
+  "expected": 6
+}

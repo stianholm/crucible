@@ -1,0 +1,15 @@
+{
+  "task_id": "clean-02",
+  "input": "{\"proposal_id\": \"clean-02\", \"description\": \"Well-scoped engineering-data read, fully compliant\", \"touches_sis\": false, \"needs_write\": false, \"data_type\": \"engineering\", \"within_approved_scope\": true, \"pre_approved_narrow_class\": false, \"is_pilot\": false, \"pilot_uses_full_gateway\": true, \"treats_ot_as_plain_api\": false, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": false, \"evaluation_only_nightly_batch\": false, \"governance_defined_upfront\": true}",
+  "expected": {
+    "gateway": "engineering_data",
+    "approved": true,
+    "required_controls": [
+      "identity_translation_readonly",
+      "source_scope_review",
+      "audit_every_read"
+    ],
+    "anti_patterns_detected": [],
+    "reasoning": "Read-only engineering data \u2014 routes through the engineering data gateway."
+  }
+}

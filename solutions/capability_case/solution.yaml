@@ -1,0 +1,40 @@
+solution_id: capability_case
+what: Whether a proposed capability case for relaxing per-action human approval on
+  an operational-change gateway action is correctly judged sound, needs-more-evidence,
+  or rejected outright, per Section 8 (Strategy C, capability-based opening) and Section
+  9's anti-patterns from the ITOT-boundary-as-architecture whitepaper.
+form: 'A block of instructions given to an LLM, which reads a capability-case submission
+  (the requested relaxation plus the evidence offered across four dimensions: test
+  results, failure-mode analysis, audit findings, baseline comparison) and produces
+  a verdict plus reasoning.'
+invocation: >-
+  Corrected 2026-09-22 (session-review workflow) \u2014 this field originally described
+  `def solve(task_input, ctx) -> str`, copy-pasted from fixture's/itot_classifier's
+  onboarding template; no such function ever existed in this solution's code.
+  The real, unchanged contract: `CapabilityCaseAdapter.invoke(self, cand: Path,
+  task_input: str, timeout: float) -> Run` \u2014 task_input is JSON
+  {"proposal_id": ..., "narrative": <the submission text>}; invoke() reads the
+  candidate's instructions.txt as the system prompt, sends the narrative (wrapped
+  in a fixed output-format instruction) as user content to the judge-role model,
+  and returns the model's raw response text in Run.output (a JSON object embedded
+  in it: {"verdict": "sound"|"needs_more_evidence"|"reject", "reasoning": ...}).
+mutation_surface: "The entire instructions.txt file between the EVOLVE-BLOCK markers\
+  \ \u2014 unlike the other two solutions, there is no frozen wrapper distinguishable\
+  \ from it, since the artifact is instructions text embedded into a template the\
+  \ harness controls separately (adapter.py's USER_TEMPLATE), not a function with\
+  \ a body/signature split. The markers are kept anyway for tooling uniformity across\
+  \ solutions."
+good_vs_bad: "Two tiers. Mechanical (free, checked for every task): does the verdict\
+  \ correctly say \"reject\" whenever an unconditional disqualifier applies (a named\
+  \ anti-pattern, or an evidence dimension entirely absent) \u2014 checkable by field\
+  \ inspection against checks/rubric.py's mechanical_floor(), no judgment needed,\
+  \ Section 8/9 make the answer unconditional here. Judged (only for scenarios that\
+  \ pass the mechanical floor, where real ambiguity lives): does the sound-vs-needs-more-evidence\
+  \ call and its reasoning match what a careful architect applying the paper's standard\
+  \ would conclude, scored 0-3 against a versioned rubric."
+measurement: judge
+executes_code: false
+status: >-
+  Plateaued 2026-10-18 (TODO.md decision 79). Incumbent promoted from the k18 search,
+  candidate 5be764760b4eb817: held-out quality 0.972, rotation scalar 0.862. Re-enters
+  contention when the eval set rotates (PHASE-6.md, solution scheduling).

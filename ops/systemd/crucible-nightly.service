@@ -1,0 +1,8 @@
+[Unit]
+Description=crucible nightly training window (PHASE-5.md task 5.2)
+
+[Service]
+Type=oneshot
+ExecStart=@REPO@/ops/nightly.sh 06:00
+# nightly.sh stops training 20 minutes before its own 06:00 deadline.
+TimeoutStartSec=6h

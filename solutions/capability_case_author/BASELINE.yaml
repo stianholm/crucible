@@ -1,0 +1,24 @@
+# capability_case_author's measured baseline. Filled from real runs; see
+# TODO.md decision 81.
+feasibility:
+  # Same reasoning as capability_case (decision 78): k=18, stratified by
+  # must-reject versus floor-pass, without replacement within a class.
+  # Rotation has 30 tasks (17 must-reject, 13 floor-pass).
+  tasks_per_candidate: 18
+  sandbox_slots: null  # no sandbox; concurrency is bounded by the worker and judge
+
+# Seed baseline, measured 2026-10-19 (TODO.md decision 81): the naive
+# "persuasive" seed, two passes each, k = all tasks, judge failures dropped.
+seed_baseline:
+  rotation_balanced: [0.748, 0.721]
+  held_out_balanced: [0.742, 0.748]
+  checks_mean_held_out:
+    floor_correct: 0.49        # recommends proceeding past a disqualifier half the time
+    disqualifiers_named: 0.47  # lists thin evidence as a disqualifier
+    no_fabrication: 0.92       # invents a figure in about 1 case in 12
+    strength_honest: 0.98
+    judge: 0.99                # BAND 3 for nearly everything: uncalibrated, not informative
+  judge_status: >-
+    Rubric v1 gives BAND 3 to all 24 calibration items, persuasive seed and honest
+    reference alike. Not trusted until calibrated against human labels
+    (checks/calibrate.py); until then the judge's 30% on floor-pass tasks is a constant.

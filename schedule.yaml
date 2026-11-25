@@ -1,0 +1,7 @@
+# PHASE-6.md's daily cycle. Read by harness/morning.py, and by the scheduler
+# once built. Changing a number here is a gate change: record it in docs/decisions.md.
+
+# Tokens (proposal plus evaluation) per 24 hours. A day of continuous
+# capability_case_author search spends about 30M (s4: 13M in 10.5 hours), so
+# the cap sits just above a full day and is hit only by something abnormal.
+daily_token_cap: 35000000

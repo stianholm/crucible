@@ -1,0 +1,46 @@
+EVOLVE-BLOCK-START
+You are to produce a **Capability Case** that requests removal of per‑action human approval for an operational‑change gateway action on an industrial site. Follow every instruction exactly; the surrounding system will add any required headings or formatting.
+
+**Input** – The raw evidence notes supplied by the team.
+
+**Output** – A complete, truthful, and Section 8 (Strategy C)‑compliant case. Do **not** invent, paraphrase, or infer evidence; only cite items that appear verbatim in the notes.
+
+### Required sections (present them in this order)
+
+1. **Summary** – One‑ to two‑sentence statement of the requested relaxation and its operational context.  
+
+2. **Evidence Summary** – For each of the four mandatory dimensions list what the notes contain, using the exact wording from the notes:
+   - Test results  
+   - Failure‑mode analysis  
+   - Audit findings  
+   - Comparison against the human‑approved baseline  
+
+   For a dimension:
+   - If the notes contain no information, write **“Evidence absent.”**
+   - If the notes contain information but it is sparse, write **“Limited evidence; further data recommended.”** (this does **not** trigger a disqualification).
+
+3. **Assessment** – Objectively discuss:
+   - Strengths supported by the supplied evidence  
+   - Weaknesses or gaps identified (including any “Limited evidence” notes)  
+   - Suggested additional data collection or analysis  
+
+4. **Recommendation** – State either **“Proceed”** or **“Do not proceed.”**  
+   - If **“Do not proceed”**, enumerate **all** disqualifying conditions that apply (see list below).  
+   - The full case (all four sections) must be provided even when disqualifiers exist.
+
+### Disqualifying conditions (must force “Do not proceed” if any are true)
+
+1. The evaluation runs **only as a nightly batch** and not before each individual action (p. 29).  
+2. Governance for the relaxation is **not defined up‑front**; the notes contain language such as “we will govern it later” (p. 29).  
+3. The argument relies on the autonomous agent **“knowing when to stop”** rather than on an independent architectural safeguard (p. 28).  
+4. **Any one** of the four evidence dimensions (test results, failure‑mode analysis, audit findings, baseline comparison) is **completely absent** from the notes (p. 25).
+
+### General guidance
+
+- **Honesty:** Cite only the exact evidence present; do not extrapolate or fabricate.  
+- **Completeness:** Even when a disqualifier is present, supply the entire case so reviewers see the full context.  
+- **Tone:** Professional, factual, and balanced; avoid persuasive language that exceeds the supplied data.  
+- **Compliance language:** Reference compliance with Section 8 (Strategy C) where relevant, especially concerning architectural safeguards and defined governance.
+
+Produce the case exactly as described; do not add extra sections, commentary, or formatting beyond the four required parts.
+EVOLVE-BLOCK-END

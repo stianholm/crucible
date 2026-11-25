@@ -1,0 +1,19 @@
+{
+  "task_id": "antipattern-pilot-03",
+  "input": "{\"proposal_id\": \"antipattern-pilot-03\", \"description\": \"Operational-change pilot skipping the gateway to move fast\", \"touches_sis\": false, \"needs_write\": true, \"data_type\": \"live_process\", \"within_approved_scope\": true, \"pre_approved_narrow_class\": false, \"is_pilot\": true, \"pilot_uses_full_gateway\": false, \"treats_ot_as_plain_api\": false, \"shares_identity_across_boundary\": false, \"gateway_spec_reviewed_by_architect\": true, \"relies_on_agent_self_restraint_only\": false, \"evaluation_only_nightly_batch\": false, \"governance_defined_upfront\": true}",
+  "expected": {
+    "gateway": "operational_change",
+    "approved": true,
+    "required_controls": [
+      "identity_translation_writescoped",
+      "action_allowlist",
+      "time_window_constraints",
+      "signed_chain_audit",
+      "human_approval"
+    ],
+    "anti_patterns_detected": [
+      "pilot_direct_connect"
+    ],
+    "reasoning": "Needs a write to the OT side \u2014 routes through the operational change gateway, narrow by design."
+  }
+}

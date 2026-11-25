@@ -1,0 +1,27 @@
+solution_id: itot_classifier
+what: "Whether a proposed IT/OT integration gets routed to the correct gateway type\
+  \ (or correctly rejected) under Section 5 of the ITOT-boundary-as-architecture whitepaper\
+  \ \u2014 the four-way split between telemetry, engineering-data, operational-change,\
+  \ and the safety-wall, plus recognising the seven named anti-patterns."
+form: A Python module with one entrypoint function that classifies an IntegrationProposal
+  (touches_sis, needs_write, data_type, scope/approval flags, anti-pattern flags)
+  into a Classification (gateway, approved, required_controls, anti_patterns_detected,
+  reasoning).
+invocation: "def solve(task_input: str, ctx) -> str \u2014 task_input is JSON encoding\
+  \ an IntegrationProposal's fields; returns json.dumps(...) of the Classification\
+  \ fields (gateway, approved, required_controls, anti_patterns_detected, reasoning)."
+mutation_surface: "Everything inside the EVOLVE-BLOCK markers in candidate/candidate.py\
+  \ \u2014 the full gateway-routing decision procedure and all seven anti-pattern\
+  \ checks. The solve() wrapper (JSON parse/serialise) and the entrypoint signature\
+  \ are frozen scaffolding."
+good_vs_bad: "Whether gateway and approved match checks/reference.py exactly (each\
+  \ is pass/fail), and how closely the detected anti_patterns_detected set matches\
+  \ the reference set (partial credit via Jaccard overlap, since missing one of several\
+  \ anti-patterns is a smaller error than missing all of them). required_controls\
+  \ and reasoning are not auto-graded \u2014 free-form prose isn't reliably checkable\
+  \ without a judge, and this solution is meant to stay fully deterministic."
+measurement: automated_checks
+executes_code: true
+status: >-
+  Plateaued: 1.0 on rotation and held-out, no headroom against the current task set
+  (PHASE-6.md, solution scheduling). Re-enters contention when the eval set rotates.
